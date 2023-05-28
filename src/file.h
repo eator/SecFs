@@ -36,7 +36,7 @@ struct inode {
   short major;             // major device no
   short minor;             // minor device no
   uint size;               // file size(bytes)
-  uint addrs[NDIRECT + 1]; // data block addresses
+  uint addrs[NDIRECT + 1 + 1]; // data block addresses
 };
 
 struct stat {

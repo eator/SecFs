@@ -6,9 +6,10 @@
 
 #define ROOTINO 1                        // root i-number
 #define FSMAGIC 0x10203040               // SecFs Magic No
-#define NDIRECT 12                       // direct block data no
-#define NINDIRECT (BSIZE / sizeof(uint)) // indirect block data no
-#define MAXFILE (NDIRECT + NINDIRECT)    // all data block no
+#define NDIRECT 11                       // direct block data no
+#define NINDIRECT (BSIZE / sizeof(uint)) // once indirect block data no
+#define NININDIRECT (NINDIRECT*NINDIRECT)// doubly indirect block data no
+#define MAXFILE (NDIRECT + NINDIRECT + NININDIRECT) // all data block no
 
 // Disk layout:
 // [ boot block | super block | log | inode blocks | bit map | data blocks ]
@@ -33,7 +34,7 @@ struct dinode {
   short major;             // major device no
   short minor;             // minor device no
   uint size;               // file size(bytes)
-  uint addrs[NDIRECT + 1]; // data block addresses
+  uint addrs[NDIRECT + 1 + 1]; // data block addresses
 };
 
 // Inode num per block.
